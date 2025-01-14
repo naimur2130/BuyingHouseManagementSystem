@@ -19,7 +19,6 @@ namespace Database.TableModel
         public int SizeId { get; set; }
         [Required]
         public int BrandId { get; set; }
-
         [Required]
         public double LatestPrice { get; set; }
         public bool IsAvailable { get; set; }

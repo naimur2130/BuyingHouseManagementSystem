@@ -5,18 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.TableModel
+namespace Business.FormModel
 {
-    public class UserInfo
+    public class UserForm
     {
-        [Key, MaxLength(128)]
-        public string UserId { get; set; } = Guid.NewGuid().ToString();
         [Required, MaxLength(50)]
         public string? UserName { get; set; }
-        [Required, MaxLength(40)]
+        [Required]
         public string? UserEmail { get; set; }
-        [Required, MaxLength(20)]
-        public string? UserPasswordHash { get; set; }
+        [Required, MinLength(8)]
+        public string? UserPassword { get; set; }
         public bool IsActive { get; set; }
     }
 }

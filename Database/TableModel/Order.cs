@@ -17,7 +17,5 @@ namespace Database.TableModel
         public int OrderAmount { get; set; }
         [Required]
         public int ProductId { get; set; }
-        [Required]
-        public int StatusId { get; set; }
     }
 }
