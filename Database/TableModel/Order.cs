@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Database.TableModel
 {
-    public class Order : TimeAndDate
+    public class Order 
     {
         [Key]
         public string OrderId { get; set; } = Guid.NewGuid().ToString();

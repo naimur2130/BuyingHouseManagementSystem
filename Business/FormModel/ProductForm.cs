@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.TableModel
+namespace Business.FormModel
 {
-    public class Product
+    public class ProductForm
     {
-        [Key]
-        public string ProductId { get; set; } = Guid.NewGuid().ToString();
         [Required]
         public string? ProductName { get; set; }
         [Required]
@@ -25,6 +23,5 @@ namespace Database.TableModel
         [Required]
         public double LatestPrice { get; set; }
         public bool IsAvailable { get; set; }
-
     }
 }

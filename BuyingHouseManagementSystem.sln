@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop", "Desktop\Desktop.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBTesting", "DBTesting", "{28EA3F55-C157-479E-B625-5D975604EB91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{4D97BF33-CA39-4390-84DA-4B5FA93809FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{4D97BF33-CA39-4390-84DA-4B5FA93809FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessTEst", "BusinessTEst", "{3FCCAE8A-5A34-411F-92C9-5749F0FFAB20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessTest", "BusinessTest\BusinessTest.csproj", "{AD7585E6-C4D6-4C19-B260-E1361EDE8B1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessTest", "BusinessTest\BusinessTest.csproj", "{AD7585E6-C4D6-4C19-B260-E1361EDE8B1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

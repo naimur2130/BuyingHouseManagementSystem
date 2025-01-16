@@ -12,6 +12,6 @@ namespace Business.FormModel
         [Required]
         public string? UserEmail { get; set; }
         [Required,MinLength(8)]
-        public string? Password { get; set; }
+        public string? UserPassword { get; set; }
     }
 }

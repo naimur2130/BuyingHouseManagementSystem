@@ -33,13 +33,35 @@ namespace Business.Services
             try
             {
                 buyingHouseDB.SaveChanges();
-                return new Result(true,
-                "Registered Succefully!",null);
+                return new Result().DBCommit(buyingHouseDB,
+                "Registered Succefully!",null,user);
             }
             catch (Exception ex) 
                 {
-                    return new Result(false, ex.Message);
+                    return new Result(false, ex.Message);  
                 }
+        }
+
+        public Result Login(UserLogin user)
+        {
+            UserInfo? userInfo = buyingHouseDB.UserInfo.Where(
+                x => x.UserEmail == user.UserEmail).FirstOrDefault();
+
+            if (userInfo == null) return new Result(false, "Register First");
+
+            PasswordVerificationResult hashResult = new PasswordHasher<
+                UserInfo>().VerifyHashedPassword(userInfo,
+                userInfo.UserPasswordHash, user.UserPassword);
+
+            if(hashResult!=PasswordVerificationResult.Failed)
+            {
+                return new Result(true, $"{userInfo.UserName} successfully logged in!");
+
+            }
+            else
+            {
+                return new Result(false, "Incorrect Password!");
+            }
         }
     }
 }
