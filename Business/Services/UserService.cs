@@ -49,11 +49,11 @@ namespace Business.Services
 
             if (userInfo == null) return new Result(false, "Register First");
 
-            PasswordVerificationResult hashResult = new PasswordHasher<
+            PasswordVerificationResult HashResult = new PasswordHasher<
                 UserInfo>().VerifyHashedPassword(userInfo,
                 userInfo.UserPasswordHash, user.UserPassword);
 
-            if(hashResult!=PasswordVerificationResult.Failed)
+            if(HashResult!=PasswordVerificationResult.Failed)
             {
                 return new Result(true, $"{userInfo.UserName} successfully logged in!");
 

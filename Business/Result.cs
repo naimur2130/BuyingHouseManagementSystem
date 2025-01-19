@@ -27,7 +27,7 @@ namespace Business
             try
             {
                 buyingHouseDB.SaveChanges();
-                return new Result(true, Message, Data);
+                return new Result(true, Message, null);
             }
             catch (Exception ex)
             {

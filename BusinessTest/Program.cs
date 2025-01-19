@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Identity;
 Console.WriteLine("Hello, World!");
 
 //Registration();
-//login();
+login();
 //addProduct();
-deleteProduct();
+//deleteProduct();
 static void Registration()
 {
     UserForm userForm = new UserForm();
