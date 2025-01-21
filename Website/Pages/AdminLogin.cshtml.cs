@@ -1,21 +1,21 @@
-using Microsoft.AspNetCore.Mvc;
-using Business;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Business.FormModel;
 using Business.Services;
-
+using Business;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Website.Pages
 {
-    public class loginModel : PageModel
+    public class AdminLoginModel : PageModel
     {
+
         [BindProperty]
-        public UserLogin loginForm { get; set; }
+        public UserLogin AdminForm { get; set; }
 
         private readonly UserService _userService;
 
         // Constructor with Dependency Injection
-        public loginModel(UserService userService)
+        public AdminLoginModel(UserService userService)
         {
             _userService = userService;
         }
@@ -33,19 +33,19 @@ namespace Website.Pages
             }
 
             // Check if loginForm is null
-            if (loginForm == null)
+            if (AdminForm == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return Page();
             }
 
             // Attempt login
-            Result result = _userService.Login(loginForm);
+            Result result = _userService.Login(AdminForm);
 
             if (result.Success)
             {
                 // Redirect to the home page if successful
-                return RedirectToPage("/AfterLogin");
+                return RedirectToPage("/Error");
             }
             else
             {

@@ -1,0 +1,29 @@
+﻿@page
+@model Website.Pages.AdminLoginModel
+@{
+
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4">Login</h3>
+        <form method="post" asp-page="/AdminLogin">
+            <!-- Email Field -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input asp-for="@Model.AdminForm.UserEmail" type="email" class="form-control" id="email" name="UserEmail" placeholder="Enter your email" required>
+                <span asp-validation-for="AdminForm.UserPassword" class="text-danger"></span>
+            </div>
+            <!-- Password Field -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input asp-for="@Model.AdminForm.UserPassword" type="password" class="form-control" id="password" name="UserPassword" placeholder="Enter your password" required>
+                <span asp-validation-for="AdminForm.UserPassword" class="text-danger"></span>
+            </div>
+            <!-- Submit Button -->
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

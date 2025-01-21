@@ -1,10 +1,24 @@
-﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+﻿
 
+
+
+@page
+@model Website.Pages.AfterLoginModel
+@{
+
+}
 <style>
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+        .hero-buttons .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
     .hero-section {
         background-image: url('/NewFolder2/bannerbg.png'); /* Replace with actual background image */
         background-size: cover;
@@ -52,13 +66,17 @@
 </style>
 
 <header class="hero-section">
-    <div class="top-buttons">
-        <a href="login" class="btn btn-primary">Login</a>
-        <a href="register" class="btn btn-secondary">Sign Up</a>
-    </div>
+    
     <h1>GET YOUR DESIRED <span style="color: #007bff;">ATTIRE</span></h1>
     <p>Dedicated to providing the best in men’s and women’s clothing and accessories.</p>
+
+    <!-- Add buttons below the picture -->
+    
 </header>
+
+<div class="hero-buttons mt-4">
+    <a href="AdminLogin" class="btn btn-primary me-2">Admin Panel</a>
+</div>
 
 <main class="container mt-5">
     <div class="row">

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Business.FormModel
 {
-    public class UserForm
+    public class UserRegister
     {
         [Required, MaxLength(50)]
         public string? UserName { get; set; }
@@ -15,6 +15,5 @@ namespace Business.FormModel
         public string? UserEmail { get; set; }
         [Required, MinLength(8)]
         public string? UserPassword { get; set; }
-        public bool IsActive { get; set; }
     }
 }

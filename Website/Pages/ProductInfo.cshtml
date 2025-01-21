@@ -1,0 +1,147 @@
+﻿@page
+@model Website.Pages.ProductInfoModel
+@{
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+
+    .table-container {
+        margin-top: 20px;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .top-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+        .top-buttons .btn {
+            flex: 1;
+            margin: 0 5px;
+        }
+</style>
+
+<body>
+
+    <div>
+        <div class="top-buttons">
+            <a href="ProductManagement" class="btn btn-outline-primary">Add Product</a>
+            <a href="UpdateProduct" class="btn btn-outline-success">Update Product</a>
+            <a href="DeleteProduct" class="btn btn-outline-warning">Delete Product</a>
+            <a href="ProductInfo" class="btn btn-outline-danger">View Product</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="text-center mb-4">Product Information</h1>
+
+        <!-- Filter Section -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                Filter Products
+            </div>
+            <div class="card-body">
+                <form id="filterForm" method="post" asp-page="/ProductInfo">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="filterType" class="form-label">Filter By</label>
+                            <select class="form-select" id="filterType" name="FilterType" required>
+                                <option value="" disabled selected>Select Filter</option>
+                                <option value="categoryId">Category ID</option>
+                                <option value="brandId">Brand ID</option>
+                                <option value="sizeId">Size ID</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filterValue" class="form-label">Filter Value</label>
+                            <input type="text" class="form-control" id="filterValue" name="FilterValue" placeholder="Enter Filter Value" required>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product Table -->
+        <div class="table-container">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    Product Details
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Category ID</th>
+                                <th>Size ID</th>
+                                <th>Brand ID</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            <tr>
+                                <td colspan="6" class="text-center">No products to display. Use the filter above.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("filterForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+                    const filterType = document.getElementById("filterType").value;
+            const filterValue = document.getElementById("filterValue").value;
+
+            const response = await fetch('/ProductInfo?handler=FilterProducts', {
+                        method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ FilterType: filterType, FilterValue: filterValue })
+                    });
+
+            const result = await response.json();
+
+            const tableBody = document.getElementById("productTableBody");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            if (result.success && result.data.length > 0) {
+    result.data.forEach(Product => { // Use "Product" instead of "product"
+        const row = `
+            <tr>
+                <td>${Product.ProductName}</td> <!-- Use "ProductName" instead of "productName" -->
+                <td>${Product.CategoryId}</td>
+                <td>${Product.SizeId}</td>
+                <td>${Product.BrandId}</td>
+                <td>${Product.ProductQuantity}</td>
+                <td>$${Product.LatestPrice.toFixed(2)}</td>
+            </tr>
+         `;
+        tableBody.innerHTML += row;
+    });
+                 }
+                    } else {
+                        tableBody.innerHTML = `<tr><td colspan="6" class="text-center">${result.message || "No products found for the selected filter."}</td></tr>`;
+                    }
+                });
+    </script>
+</body>

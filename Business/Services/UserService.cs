@@ -14,7 +14,7 @@ namespace Business.Services
     {
         BuyingHouseDB buyingHouseDB = new BuyingHouseDB();
 
-        public Result Registration(UserForm user)
+        public Result Registration(UserRegister user)
         {
             bool x = buyingHouseDB.UserInfo.Any(
                 x => x.UserEmail == user.UserEmail);
@@ -61,6 +61,27 @@ namespace Business.Services
             else
             {
                 return new Result(false, "Incorrect Password!");
+            }
+        }
+
+        public Result AdminLogin(UserLogin user)
+        {
+            bool x = false;
+            if(user.UserEmail == "admin@gmail.com") { x = true; }
+
+            UserInfo userInfo = new UserInfo();
+
+            PasswordVerificationResult HashResult = new PasswordHasher<
+                UserInfo>().VerifyHashedPassword(userInfo,
+                userInfo.UserPasswordHash, user.UserPassword);
+
+            if(HashResult != PasswordVerificationResult.Failed && x==true)
+            {
+                return new Result(true, $"{userInfo.UserName} successfully logged in!");
+            }
+            else
+            {
+                return new Result(false, "Invalid Input!");
             }
         }
     }
