@@ -1,0 +1,82 @@
+﻿@page
+@model Website.Pages.OrderCartModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h1 {
+        color: #343a40;
+    }
+
+    .table {
+        background-color: #ffffff;
+    }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .delete-btn {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+</style>
+
+<h1 class="text-center mt-4">@ViewData["Title"]</h1>
+
+<div class="container mt-5">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>TempOrderID</th>
+                    <th>OrderAmount</th>
+                    <th>SizeId</th>
+                    <th>BrandId</th>
+                    <th>CategoryId</th>
+                    <th>ProductId</th>
+                    <th>TotalPrice</th>
+                    <th>IsProcessed</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderCarts)
+                {
+                    <tr>
+                        <td>@item.TempOrderID</td>
+                        <td>@item.OrderAmount</td>
+                        <td>@item.SizeId</td>
+                        <td>@item.BrandId</td>
+                        <td>@item.CategoryId</td>
+                        <td>@item.ProductId</td>
+                        <td>@item.TotalPrice</td>
+                        <td>@item.IsProcessed</td>
+                        <td>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@item.TempOrderID">
+                                <button type="submit" class="btn delete-btn btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-success">Confirm Order</button>
+    </div>
+</div>

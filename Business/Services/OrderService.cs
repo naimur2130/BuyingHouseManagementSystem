@@ -13,7 +13,7 @@ namespace Business.Services
     {
         BuyingHouseDB buyingHouseDB = new BuyingHouseDB();
 
-        public Result AddOrder(OrderForm order)
+        public Result AddOrderCart(OrderForm order)
         {
 
             var product = buyingHouseDB.Product.FirstOrDefault(p=> p.ProductId==order.ProductId
@@ -29,7 +29,7 @@ namespace Business.Services
                 return new Result(false,"Insufficient product.");
             }
 
-            Order addOrder = new Order
+            OrderCart addOrder = new OrderCart
             {
                 ProductId = order.ProductId,
                 SizeId = order.SizeId,
@@ -41,7 +41,7 @@ namespace Business.Services
             };
 
             product.ProductQuantity -= order.OrderAmount;
-            buyingHouseDB.Order.Add(addOrder);
+            buyingHouseDB.OrderCart.Add(addOrder);
 
             try
             {
@@ -52,6 +52,32 @@ namespace Business.Services
             {
                 return new Result(false, ex.Message);
             }
+        }
+
+        public Result OrderList()
+        {
+            try
+            {
+                var products = buyingHouseDB.OrderCart.ToList();
+                return new Result(true, "Successful", products);
+            }
+            catch (Exception ex)
+            {
+                return new Result(false, "Error");
+            }
+        }
+
+        public Result DeleteOrder(string tempId)
+        {
+            var order = buyingHouseDB.OrderCart.FirstOrDefault(x => x.TempOrderID == tempId);
+            if(order == null)
+            {
+                return new Result(false,"Cart Not found");
+            }
+            buyingHouseDB.OrderCart.Remove(order);
+            buyingHouseDB.SaveChanges();
+
+            return new Result(true,"Successfully deleted card");
         }
     }
 }

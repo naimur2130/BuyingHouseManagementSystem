@@ -22,7 +22,8 @@ namespace Database.DatabaseConnection
         public DbSet<Category> Category { get; set; }
         public DbSet<Size> Size { get; set; }
         public DbSet<Price> Price { get; set; }
-        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderTable> Order { get; set; }
+        public DbSet<OrderCart> OrderCart { get; set; }
         public DbSet<Brand> Brand { get; set; }
 
     }

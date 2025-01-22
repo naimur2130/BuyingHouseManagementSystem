@@ -49,7 +49,7 @@ namespace Website.Pages
 
             };
 
-            Result result = _orderService.AddOrder(OrderForm);
+            Result result = _orderService.AddOrderCart(OrderForm);
 
             if(result.Success)
             {
