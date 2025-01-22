@@ -45,7 +45,7 @@ namespace Website.Pages
             if (result.Success)
             {
                 // Redirect to the home page if successful
-                return RedirectToPage("/Error");
+                return RedirectToPage("/DashboardAdmin");
             }
             else
             {

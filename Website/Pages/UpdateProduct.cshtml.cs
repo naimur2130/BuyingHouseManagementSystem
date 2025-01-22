@@ -12,8 +12,7 @@ namespace Website.Pages
 
         [BindProperty]
         public ProductForm Update { get; set; }
-        public string Message { get; set; } // To display success/error messages
-        public bool IsSuccess { get; set; }
+        
 
         public UpdateProductModel(ProductService productService)
         {
@@ -29,8 +28,6 @@ namespace Website.Pages
         {
             if (!ModelState.IsValid)
             {
-                Message = "Please fill out all required fields.";
-                IsSuccess = false; Message = "Please fill out all required fields.";
                 return Page();
             }
 

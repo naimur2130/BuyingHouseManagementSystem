@@ -35,8 +35,35 @@ namespace Website.Pages
                 return Page();
             }
 
+            // Handle file upload
+            string imageUrl = null;
+            if (Product.ProductImage != null && Product.ProductImage.Length > 0)
+            {
+                // Define the upload folder path
+                var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+                // Ensure the uploads directory exists
+                if (!Directory.Exists(uploadFolder))
+                {
+                    Directory.CreateDirectory(uploadFolder);
+                }
+
+                // Generate a unique file name
+                var fileName = Path.GetFileName(Product.ProductImage.FileName);
+                var filePath = Path.Combine(uploadFolder, fileName);
+
+                // Save the file
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    Product.ProductImage.CopyTo(stream);
+                }
+
+                // Set the image URL (adjust this to fit your URL structure)
+                imageUrl = "/uploads/" + fileName;
+            }
+
             // Add product using the service
-            Result result = _productService.AddProduct(Product, "admin@gmail.com");
+            Result result = _productService.AddProduct(Product, "admin@gmail.com", imageUrl);
 
             if (result.Success)
             {
@@ -48,5 +75,6 @@ namespace Website.Pages
                 return Page();
             }
         }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
@@ -22,6 +23,7 @@ namespace Business.FormModel
         public int ProductQuantity { get; set; }
         [Required]
         public double LatestPrice { get; set; }
+        public IFormFile ProductImage { get; set; }
         public bool IsAvailable { get; set; }
     }
 }

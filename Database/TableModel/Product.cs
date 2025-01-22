@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlTypes;
@@ -24,6 +25,8 @@ namespace Database.TableModel
         public int ProductQuantity { get; set; }
         [Required]
         public double LatestPrice { get; set; }
+        [Required]
+        public string? ImageUrl { get; set; }
         public bool IsAvailable { get; set; }
 
     }

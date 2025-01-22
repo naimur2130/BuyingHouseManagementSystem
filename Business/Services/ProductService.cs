@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services
 {
@@ -13,14 +14,14 @@ namespace Business.Services
     {
         BuyingHouseDB buyingHouseDB = new BuyingHouseDB();
 
-        public Result AddProduct(ProductForm p,string AdminEmail)
+        public Result AddProduct(ProductForm p, string AdminEmail,string imageUrl)
         {
             Product product = new Product();
 
-            if(AdminEmail == "admin@gmail.com")
+            if (AdminEmail == "admin@gmail.com")
             {
-                var result = buyingHouseDB.Product.FirstOrDefault(x=>x.ProductName==p.ProductName && x.CategoryId==p.CategoryId
-                && x.SizeId==p.SizeId && x.BrandId==p.BrandId);
+                var result = buyingHouseDB.Product.FirstOrDefault(x => x.ProductName == p.ProductName && x.CategoryId == p.CategoryId
+                && x.SizeId == p.SizeId && x.BrandId == p.BrandId);
 
                 if (result != null)
                 {
@@ -36,6 +37,11 @@ namespace Business.Services
                     product.LatestPrice = p.LatestPrice;
                     product.ProductQuantity = p.ProductQuantity;
                     product.IsAvailable = true;
+
+                    if (!string.IsNullOrEmpty(imageUrl))
+                    {
+                        product.ImageUrl = imageUrl; // Save the URL string to the database
+                    }
                 }
             }
 
@@ -92,47 +98,25 @@ namespace Business.Services
             }
         }
 
-        public List<Product> ReadProduct(string filterType, string filterValue)
+        public Result List()
         {
             try
             {
-                var query = buyingHouseDB.Product.AsQueryable();
-
-                switch (filterType.ToLower())
-                {
-                    case "categoryid":
-                        if (int.TryParse(filterValue, out int categoryId))
-                        {
-                            query = query.Where(p => p.CategoryId == categoryId);
-                        }
-                        break;
-
-                    case "sizeid":
-                        if (int.TryParse(filterValue, out int sizeId))
-                        {
-                            query = query.Where(p => p.SizeId == sizeId);
-                        }
-                        break;
-
-                    case "brandid":
-                        if (int.TryParse(filterValue, out int brandId))
-                        {
-                            query = query.Where(p => p.BrandId == brandId);
-                        }
-                        break;
-
-                    default:
-                        throw new Exception("Invalid filter type");
-                }
-
-                return query.ToList();
+                var products = buyingHouseDB.Product.ToList();
+                return new Result(true, "Successful", products);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error fetching products: {ex.Message}");
+                return new Result(false,"Error");
             }
         }
+        
 
-
+        public async Task<List<Product>> GetProductsAsync()
+        {
+            return await buyingHouseDB.Product.ToListAsync();
+        }
     }
 }
+
+        

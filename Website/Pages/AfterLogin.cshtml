@@ -1,26 +1,11 @@
-﻿
-
-
-
-@page
+﻿@page
 @model Website.Pages.AfterLoginModel
 @{
-
 }
+
 <style>
-    .hero-buttons {
-        display: flex;
-        justify-content: center;
-    }
-
-        .hero-buttons .btn {
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
-        }
-
     .hero-section {
-        background-image: url('/NewFolder2/bannerbg.png'); /* Replace with actual background image */
+        background-image: url('/images/bannerbg.png'); 
         background-size: cover;
         background-position: center;
         color: white;
@@ -66,12 +51,8 @@
 </style>
 
 <header class="hero-section">
-    
     <h1>GET YOUR DESIRED <span style="color: #007bff;">ATTIRE</span></h1>
     <p>Dedicated to providing the best in men’s and women’s clothing and accessories.</p>
-
-    <!-- Add buttons below the picture -->
-    
 </header>
 
 <div class="hero-buttons mt-4">
@@ -91,138 +72,37 @@
         <div class="col-md-9">
             <h4>Our Products</h4>
             <div class="row g-4">
-                <!-- Product 1 -->
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x400" alt="Men's Casual Blazer">
-                        <h5>Men's Casual Blazer</h5>
-                        <p>Price: $75.99</p>
-                        <div>
-                            <label for="size1">Size:</label>
-                            <select id="size1" class="form-select">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                            </select>
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="@product.ImageUrl" alt="@product.ProductName">
+                            <h5>@product.ProductName</h5>
+                            <p>Price: @product.LatestPrice/-</p>
+                            <div>
+                                <label for="size-@product.SizeId">Size:</label>
+                                <select id="size-@product.SizeId" class="form-select">
+                                    <option>S</option>
+                                    <option>M</option>
+                                    <option>L</option>
+                                </select>
+                            </div>
+                            <div class="mt-2">
+                                <label for="quantity-@product.ProductQuantity">Quantity:</label>
+                                <input id="quantity-@product.ProductQuantity" type="number" class="form-control" value="1">
+                            </div>
+                            <form method="post" asp-page-handler="AddToCart">
+                                <input type="hidden" name="ProductId" value="@product.ProductId" />
+                                <input type="hidden" name="CategoryId" value="@product.CategoryId" />
+                                <input type="hidden" name="SizeId" value="@product.SizeId" />
+                                <input type="hidden" name="BrandId" value="@product.BrandId" />
+                                <input type="hidden" name="OrderAmount" value="1" />
+                                <button type="submit" class="btn btn-success mt-3">Add to Cart</button>
+                            </form>
                         </div>
-                        <div class="mt-2">
-                            <label for="quantity1">Quantity:</label>
-                            <input id="quantity1" type="number" class="form-control" value="1">
-                        </div>
-                        <button class="btn btn-success mt-3">Add to Cart</button>
                     </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x400" alt="Men's Slim Fit Jeans">
-                        <h5>Men's Slim Fit Jeans</h5>
-                        <p>Price: $45.99</p>
-                        <div>
-                            <label for="size2">Size:</label>
-                            <select id="size2" class="form-select">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                            </select>
-                        </div>
-                        <div class="mt-2">
-                            <label for="quantity2">Quantity:</label>
-                            <input id="quantity2" type="number" class="form-control" value="1">
-                        </div>
-                        <button class="btn btn-success mt-3">Add to Cart</button>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x400" alt="Men's Formal Shirt">
-                        <h5>Men's Formal Shirt</h5>
-                        <p>Price: $39.99</p>
-                        <div>
-                            <label for="size3">Size:</label>
-                            <select id="size3" class="form-select">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                            </select>
-                        </div>
-                        <div class="mt-2">
-                            <label for="quantity3">Quantity:</label>
-                            <input id="quantity3" type="number" class="form-control" value="1">
-                        </div>
-                        <button class="btn btn-success mt-3">Add to Cart</button>
-                    </div>
-                </div>
-
-                <!-- More Products -->
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x400" alt="Women's Evening Gown">
-                        <h5>Women's Evening Gown</h5>
-                        <p>Price: $120.99</p>
-                        <div>
-                            <label for="size4">Size:</label>
-                            <select id="size4" class="form-select">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                            </select>
-                        </div>
-                        <div class="mt-2">
-                            <label for="quantity4">Quantity:</label>
-                            <input id="quantity4" type="number" class="form-control" value="1">
-                        </div>
-                        <button class="btn btn-success mt-3">Add to Cart</button>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x400" alt="Women's Casual Dress">
-                        <h5>Women's Casual Dress</h5>
-                        <p>Price: $55.99</p>
-                        <div>
-                            <label for="size5">Size:</label>
-                            <select id="size5" class="form-select">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                            </select>
-                        </div>
-                        <div class="mt-2">
-                            <label for="quantity5">Quantity:</label>
-                            <input id="quantity5" type="number" class="form-control" value="1">
-                        </div>
-                        <button class="btn btn-success mt-3">Add to Cart</button>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x400" alt="Women's High Jeans">
-                        <h5>Women's High Jeans</h5>
-                        <p>Price: $49.99</p>
-                        <div>
-                            <label for="size6">Size:</label>
-                            <select id="size6" class="form-select">
-                                <option>S</option>
-                                <option>M</option>
-                                <option>L</option>
-                            </select>
-                        </div>
-                        <div class="mt-2">
-                            <label for="quantity6">Quantity:</label>
-                            <input id="quantity6" type="number" class="form-control" value="1">
-                        </div>
-                        <button class="btn btn-success mt-3">Add to Cart</button>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
 </main>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

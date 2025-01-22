@@ -4,13 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
-namespace Database.TableModel
+namespace Business.FormModel
 {
-    public class Order 
+    public class OrderForm
     {
-        [Key]
-        public string OrderId { get; set; } = Guid.NewGuid().ToString();
         [Required]
         public int OrderAmount { get; set; }
         [Required]
@@ -22,8 +21,5 @@ namespace Database.TableModel
 
         [Required]
         public string ProductId { get; set; }
-        [Required]
-        public double TotalPrice { get; set; }
-        public bool IsProcessed { get; set; }
     }
 }
